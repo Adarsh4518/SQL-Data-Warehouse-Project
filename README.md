@@ -1,67 +1,135 @@
-# SQL-Data-Warehouse-Project
-Building a modern data warehouse with mysql, including ETL process, data modeling, and analytics.
 
-# Data Warehouse and Analytics Project
+# SQL Data Warehouse & Analytics Project
 
-Welcome to my **Data Warehouse and Analytics Project** repository! 🚀
+Building a modern data warehouse using MySQL, implementing ETL processes, data modelling, and SQL-based analytics.
 
-This is a personal portfolio project demonstrating a comprehensive data warehousing and analytics solution, from building a data warehouse to generating actionable business insights. It highlights industry best practices in data engineering and analytics.
+## Project Overview
 
----
+This project demonstrates the design and implementation of an end-to-end data warehouse using data from two source systems: **CRM (Customer Relationship Management)** and **ERP (Enterprise Resource Planning)**.
 
-## 🚀 Project Requirements
+The objective is to consolidate raw sales, customer, and product data into a structured data warehouse, ensuring data quality and enabling business-driven analytical reporting.
 
-### Building the Data Warehouse (Data Engineering)
-
-#### Objective
-
-Develop a modern data warehouse using **MySQL** to consolidate sales data, enabling analytical reporting and informed decision-making.
-
-#### Specifications
-
-- **Data Sources:** Import data from two source systems (ERP and CRM) provided as CSV files.
-- **Data Quality:** Cleanse and resolve data quality issues prior to analysis.
-- **Integration:** Combine both sources into a single, user-friendly data model designed for analytical queries.
-- **Scope:** Focus on the latest dataset only; historization of data is not required.
-- **Documentation:** Provide clear documentation of the data model to support both business stakeholders and analytics teams.
+The project follows the **Medallion Architecture (Bronze, Silver, and Gold)** to transform raw data into clean, enriched, and business-ready datasets.
 
 ---
 
-### BI: Analytics & Reporting (Data Analytics)
+## Data Warehouse Architecture
 
-#### Objective
+The project follows a three-layer Medallion Architecture.
 
-Develop SQL-based analytics to deliver detailed insights into:
+![Data Warehouse Architecture](Docs/Data%20Architecture.png)
 
-- **Customer Behavior**
-- **Product Performance**
-- **Sales Trends**
+### 1. Bronze Layer – Raw Data
+- Ingested raw CSV files into MySQL tables.
+- Implemented batch processing and full-load ingestion.
+- Used TRUNCATE and INSERT operations to reload source data.
+- Maintained raw source data for downstream transformations.
 
-These insights empower stakeholders with key business metrics, enabling strategic decision-making.
+### 2. Silver Layer – Data Transformation
+- Cleaned and standardized raw data.
+- Handled NULL values, duplicates, and inconsistent records.
+- Applied data validation and quality checks.
+- Integrated CRM and ERP datasets.
+- Performed data enrichment and derived-column transformations.
+
+### 3. Gold Layer – Business-Ready Data
+- Created customer and product dimension views.
+- Developed a sales fact view.
+- Implemented a Star Schema for analytical querying.
+- Established relationships between fact and dimension tables.
 
 ---
 
-## 🛠️ Tools & Technologies
+## Source Data Model (ERD)
+
+The project integrates data from CRM and ERP source systems.
+
+![Source Data Model](Docs/Data%20model.png)
+
+### Data Sources
+
+| Source | Description |
+|---|---|
+| CRM | Sales transactions, customer information, and product details. |
+| ERP | Customer demographics, geographical information, and product categories. |
+
+---
+
+## ETL Architecture
+
+The ETL process extracts data from source CSV files, loads it into the Bronze Layer, transforms it through the Silver Layer, and produces business-ready datasets in the Gold Layer.
+
+![ETL Architecture](Docs/ETL%20Architecture.png)
+
+---
+
+## Gold Layer – Star Schema
+
+The Gold Layer follows a Star Schema consisting of two dimension views and one fact view.
+
+![Star Schema](Docs/Star%20Schema.png)
+
+| Table | Description |
+|---|---|
+| `gold.dim_customers` | Customer demographic and geographic information. |
+| `gold.dim_products` | Product details, categories, and attributes. |
+| `gold.fact_sales` | Sales transactions, order details, and business metrics. |
+
+### Relationships
+- `fact_sales.customer_key` → `dim_customers.customer_key`
+- `fact_sales.product_key` → `dim_products.product_key`
+
+---
+
+## Key Project Achievements
+
+- Designed and implemented a three-layer data warehouse using MySQL.
+- Built an end-to-end ETL workflow to integrate multiple source systems.
+- Performed data cleaning, standardization, deduplication, and validation.
+- Developed reusable SQL views for customer, product, and sales analysis.
+- Designed a Star Schema with two dimension views and one fact view.
+- Implemented data quality checks, including duplicate detection and referential integrity validation.
+- Created data dictionaries, architecture diagrams, and technical documentation.
+
+---
+
+## Business Analytics
+
+The Gold Layer provides a foundation for analysing:
+
+- **Customer Behaviour:** Customer demographics, distribution, and purchasing patterns.
+- **Product Performance:** Product categories, subcategories, and sales performance.
+- **Sales Trends:** Revenue, order quantities, pricing, and sales patterns.
+
+---
+
+## Tools & Technologies
 
 - **Database:** MySQL
 - **Database Management:** MySQL Workbench
-- **Data Sources:** CSV Files
 - **Query Language:** SQL
+- **Data Sources:** CSV Files
+- **Data Modelling & Documentation:** Draw.io
+- **Version Control:** Git & GitHub
 
 ---
 
-## ⭐ License
+## Project Documentation
 
-This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and share this project with proper attribution.
+Architecture diagrams, data models, data dictionaries, and technical documentation are available in the `Docs` folder.
 
 ---
 
-## 👨‍💻 About Me
+## License
 
-Hi! I'm **Adarsh Pallathoor**, an Electronics and Computer Science Engineering graduate with an interest in Data Analytics, Business Intelligence, and Data Engineering.
+This project is licensed under the MIT License.
+
+---
+
+## About Me
+
+I'm Adarsh, an Electronics and Computer Science Engineering graduate interested in Data Analytics, Business Intelligence, and Data Engineering.
 
 I enjoy working with data, exploring patterns, solving analytical problems, and transforming raw data into meaningful insights.
 
-My technical interests include SQL, Python, Excel, and Power BI. I'm continuously learning and building hands-on projects to strengthen my technical skills and gain practical industry experience.
-
-This repository is part of my journey in developing expertise in data analytics and data engineering.
+I'm continuously learning and building hands-on projects to strengthen my technical skills and develop practical experience.
